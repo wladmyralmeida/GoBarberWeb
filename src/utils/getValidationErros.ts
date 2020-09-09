@@ -5,7 +5,7 @@ interface Erros {
   [key: string]: string;
 }
 
-export default function getValidationErros(err: ValidationError): Erros {
+export default function getValidationErrors(err: ValidationError): Erros {
   const validationErrors: Erros = {};
 
   err.inner.forEach(error => {

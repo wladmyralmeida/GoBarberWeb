@@ -8,7 +8,7 @@ import logoImg from "../../assets/logo.svg";
 
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import getValidationErros from '../../utils/getValidationErros';
+import getValidationErrors from '../../utils/getValidationErros';
 
 import { Container, Content, Background } from "./styles";
 
@@ -35,7 +35,7 @@ const SignUp: React.FC = () => {
       
     } catch (err) {
       console.log(err);
-      const erros = getValidationErros(err);
+      const erros = getValidationErrors(err);
       formRef.current?.setErrors(erros);
     }
   }, []);

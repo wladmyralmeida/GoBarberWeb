@@ -1,6 +1,13 @@
-import React, { InputHTMLAttributes } from "react";
+import React, {
+  InputHTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+} from "react";
 
 import { IconBaseProps } from "react-icons";
+import { useField } from "@unform/core";
 
 import { Container } from "./styles";
 
@@ -9,15 +16,49 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ComponentType<IconBaseProps>;
 }
 
-// 1. Não dá pra fazer icon && icon, e o React também não entende icon -> <icon />
-// Logo, precisa converter pra primeira letra maiúscula;
-// 2. Para ter acesso às propriedades do componente original precisa paassar por parâmetro
-// na interface o IconBaseProps;
-const Input: React.FC<InputProps> = ({ icon: Icon, ...rest }) => (
-  <Container>
-    {Icon && <Icon size={20} />}
-    <input {...rest} />
-  </Container>
-);
+//Quando no JS, tem uma função e dentro dela tem outra função, quando a função pai for
+//chamada, ela vai recriar a filho na memória;
+//Lei - Sempre que formos criar uma função dentro de um componente, não será uma function
+//Será um hook - useCallBack - pra guardar na memória e só utilizar se preciso for.
+const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [isFocused, setIsFocused] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
+
+  const { fieldName, defaultValue, error, registerField } = useField(name);
+
+  const handleInputFocus = useCallback(() => {
+    setIsFocused(true);
+  }, []);
+  
+  const handleInputBlur = useCallback(() => {
+    setIsFocused(false);
+
+    setIsFilled(!!inputRef.current?.value);
+  }, []);
+
+  //Assim que o componente for exibido em tela, registrá-lo para uso.
+  useEffect(() => {
+    registerField({
+      name: fieldName,
+      //Manipular o elemento de uma forma direta, sem precisar de um estado(doc.getElement);
+      ref: inputRef.current,
+      path: "value",
+    });
+  }, [fieldName, registerField]);
+
+  return (
+    <Container isFocused={isFocused} isFilled={isFilled}>
+      {Icon && <Icon size={20} />}
+      <input
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
+        defaultValue={defaultValue}
+        ref={inputRef}
+        {...rest}
+      />
+    </Container>
+  );
+};
 
 export default Input;

@@ -1,8 +1,11 @@
 import styled, { css } from "styled-components";
 
+import Tooltip from "../Tooltip";
+
 interface ContainerProps {
   isFocused: boolean;
   isFilled: boolean;
+  isErrored: boolean;
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -22,13 +25,19 @@ export const Container = styled.div<ContainerProps>`
   }
 
   ${(props) =>
+    props.isErrored &&
+    css`
+      border-color: #c53030;
+    `}
+
+  ${(props) =>
     props.isFocused &&
     css`
       color: #ff9000;
       border-color: #ff9000;
     `}
 
-    ${(props) =>
+  ${(props) =>
     props.isFilled &&
     css`
       color: #ff9000;
@@ -47,5 +56,24 @@ export const Container = styled.div<ContainerProps>`
 
   svg {
     margin-right: 16px;
+  }
+`;
+
+//Estilizar o Tooltip do error; Obs: Como é tudo clase, passa o className pro tooltip,
+export const Error = styled(Tooltip)`
+  height: 20px;
+  margin-left: 16px;
+
+  svg {
+    margin-right: 0px;
+  }
+
+  span {
+    background: #c53030;
+    color: #fff;
+
+    &::before {
+      border-color: #c53030 transparent;
+    }
   }
 `;

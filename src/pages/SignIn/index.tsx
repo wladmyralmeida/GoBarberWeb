@@ -8,14 +8,23 @@ import logoImg from "../../assets/logo.svg";
 
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+
+import { useAuth } from "../../hooks/AuthContext";
 import getValidationErrors from '../../utils/getValidationErros';
 
 import { Container, Content, Background } from "./styles";
 
+interface SignInFormData {
+  email: string;
+  password: string;
+}
+
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback(async (data: object) => {
+  const { signIn } = useAuth();
+
+  const handleSubmit = useCallback(async (data: SignInFormData) => {
     try {
       
       formRef.current?.setErrors({});
@@ -32,12 +41,16 @@ const SignIn: React.FC = () => {
         abortEarly: false,
       });
       
+      signIn({
+        email: data.email,
+        password: data.password,
+      });
     } catch (err) {
       console.log(err);
       const erros = getValidationErrors(err);
       formRef.current?.setErrors(erros);
     }
-  }, []);
+  }, [signIn]);
 
 
   return (

@@ -34,9 +34,13 @@ const SignUp: React.FC = () => {
       });
       
     } catch (err) {
-      console.log(err);
-      const erros = getValidationErrors(err);
-      formRef.current?.setErrors(erros);
+      if (err instanceof Yup.ValidationError){
+        const erros = getValidationErrors(err);
+
+        formRef.current?.setErrors(erros);
+      }
+
+      //disparar um toast;
     }
   }, []);
 

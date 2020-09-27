@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { shade } from "polished";
 
 import signInBackground from "../../assets/sign-in-background.png";
@@ -6,19 +6,37 @@ import signInBackground from "../../assets/sign-in-background.png";
 export const Container = styled.div`
   height: 100vh;
   display: flex;
-
-  /* Tanto o content quanto o background possuir 100vh */
   align-items: stretch;
 `;
 
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  place-content: center;
+
   width: 100%;
   max-width: 700px;
+`;
+
+const appearFromLeft = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
+export const AnimationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+
+  animation: ${appearFromLeft} 1s;
 
   form {
     margin: 80px 0;
@@ -42,7 +60,6 @@ export const Content = styled.div`
     }
   }
 
-  /* Somente os 'as' diretamente dentro do content, sem prejudicar níveis à dentro; */
   > a {
     color: #ff9000;
     display: block;
@@ -54,7 +71,7 @@ export const Content = styled.div`
     align-items: center;
 
     svg {
-        margin-right: 16px;
+      margin-right: 16px;
     }
 
     &:hover {

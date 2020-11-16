@@ -43,17 +43,114 @@ export const Profile = styled.div`
   }
 
   div {
-      display: flex;
-      flex-direction: column;
-      margin-left: 16px;
-      line-height: 24px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+    line-height: 24px;
 
-      span {
-          color: #f4ede8;
-      }
+    span {
+      color: #f4ede8;
+    }
 
-      strong {
-          color: #ff9000;
-      }
+    strong {
+      color: #ff9000;
+    }
   }
+`;
+
+export const Content = styled.main`
+  max-width: 1120px;
+  margin: 64px auto;
+  display: flex;
+`;
+
+export const Schedule = styled.div`
+  flex: 1;
+  margin-right: 120px;
+
+  h1 {
+    font-size: 36px;
+  }
+
+  p {
+    margin-top: 8px;
+    color: #ff9000;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+
+    span {
+      display: flex;
+      align-items: center;
+    }
+
+    /*  Do segundo span pra frente, content obrigatório */
+    span + span::before {
+      content: "";
+      width: 1px;
+      height: 12px;
+      background: #ff9000;
+      margin-left: 0 8px;
+    }
+  }
+`;
+
+export const NextAppointment = styled.div`
+  margin-top: 666360;
+
+  > strong {
+    color: #999591;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  div {
+    background: #3e3b47;
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    border-radius: 10px;
+    margin-top: 24px;
+
+    /* Borda lateral laranja */
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      height: 80%;
+      width: 1px;
+      /* Pra ficar totalmente no centro */
+      left: 0;
+      top: 10%;
+      background: #ff9000;
+    }
+
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+
+    strong {
+      margin-left: 24px;
+      color: #fff;
+    }
+
+    span {
+      margin-left: auto;
+      display: flex;
+      align-self: center;
+      color: #999591;
+    }
+
+    svg {
+      color: #ff9000;
+      margin-right: 8px;
+    }
+  }
+`;
+
+export const Calendar = styled.aside`
+  width: 380px;
 `;

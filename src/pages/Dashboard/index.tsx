@@ -9,6 +9,8 @@ import {
   Schedule,
   NextAppointment,
   Calendar,
+  Section,
+  Appointment,
 } from "./styles";
 
 import logoImg from "../../assets/logo.svg";
@@ -60,6 +62,41 @@ const Dashboard: React.FC = () => {
                     </span>
                 </div>
             </NextAppointment>
+
+            <Section>
+                <strong>Manhã</strong>
+
+                <Appointment>
+                    <span>
+                        <FiClock />
+                        09:00
+                    </span>
+
+                    <div>
+                        <img src="teste" alt="Wlad'myr Almeida"/>
+                    </div>
+
+                    <strong>Wlad'myr Almeida</strong>
+                </Appointment>
+
+                <Appointment>
+                    <span>
+                        <FiClock />
+                        09:00
+                    </span>
+
+                    <div>
+                        <img src="teste" alt="Wlad'myr Almeida"/>
+                    </div>
+
+                    <strong>Wlad'myr Almeida</strong>
+                </Appointment>
+            </Section>
+
+            <Section>
+                <strong>Tarde</strong>
+            </Section>
+
         </Schedule>
         <Calendar />
       </Content>
